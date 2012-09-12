@@ -52,16 +52,16 @@ def count_live_neighbors(cell, world):
     liveCount = 0
     return sum([1 for cell in get_neighbors(cell) if check_live(cell,world)])
 
-def handle_live_cell(cell,world):
-    c = count_live_neighbors(cell,world)
+def handle_live_cell(cell,world,ref):
+    c = count_live_neighbors(cell,ref)
 
     if c == 2 or c == 3:
         world[cell] = LIVE
     else:
         world[cell] = DEAD
 
-def handle_dead_cell(cell,world):
-    c = count_live_neighbors(cell,world)
+def handle_dead_cell(cell,world,ref):
+    c = count_live_neighbors(cell,ref)
     if c == 3:
         world[cell] = LIVE
 
@@ -73,10 +73,11 @@ def main():
     while True:
         print_world(world)
 
-        refWorld 
-        for cell in world:      
-            handle_cell[world[cell]](cell,world)
+        refWorld = deepcopy(world)
+        for cell in refWorld:
+            handle_cell[refWorld[cell]](cell,world,refWorld)
         sleep(1)
         system('cls')
+
 if __name__ == '__main__':
     main()
